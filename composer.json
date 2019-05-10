@@ -1,0 +1,13 @@
+{
+    "name": "deviantintegral/drupal-update-client",
+    "description": "A client for updates.drupal.org",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Andrew Berry",
+            "email": "deviantintegral@gmail.com"
+        }
+    ],
+    "require": {}
+}
