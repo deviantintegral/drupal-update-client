@@ -15,14 +15,22 @@
         "guzzlehttp/guzzle": "^6.3",
         "symfony/property-access": "^4.2",
         "symfony/property-info": "^4.2",
-        "phpdocumentor/reflection-docblock": "^4.3"
+        "phpdocumentor/reflection-docblock": "^4.3",
+        "jms/serializer": "^3.1",
+        "doctrine/annotations": "^1.6"
     },
     "autoload": {
         "psr-4": {
             "Deviantintegral\\DrupalUpdateClient\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Deviantintegral\\DrupalUpdateClient\\Tests\\": "tests/src/"
+        }
+    },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "2.15"
+        "friendsofphp/php-cs-fixer": "2.15.1",
+        "phpunit/phpunit": "^8.2"
     }
 }

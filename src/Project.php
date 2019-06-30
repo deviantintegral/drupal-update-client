@@ -4,65 +4,105 @@ declare(strict_types=1);
 
 namespace Deviantintegral\DrupalUpdateClient;
 
+use JMS\Serializer\Annotation as Serializer;
+
 /**
  * Represents a project on Drupal.org, such as 'drupal' or 'views'.
+ *
+ * @Serializer\XmlRoot("project")
  */
 class Project
 {
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     private $title;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     private $shortName;
 
     /**
      * @var string
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("dc:creator")
      */
     private $dcCreator;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     private $type;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     private $apiVersion;
 
     /**
      * @var int
+     * @Serializer\Type("integer")
      */
     private $recommendedMajor;
 
     /**
      * @var int
+     * @Serializer\Type("integer")
      */
-    private $supportedMajor;
+    private $supportedMajors;
 
     /**
      * @var int
+     * @Serializer\Type("integer")
      */
     private $defaultMajor;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     private $projectStatus;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     private $link;
 
     /**
-     * @var \Deviantintegral\DrupalUpdateClient\Terms
+     * @var \Deviantintegral\DrupalUpdateClient\Term[]
+     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Term>")
+     * @Serializer\XmlList(entry="term")
      */
     private $terms = [];
+
+    /**
+     * @var \Deviantintegral\DrupalUpdateClient\Release[]
+     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Release>")
+     * @Serializer\XmlList(entry="release")
+     */
+    private $releases;
+
+    /**
+     * @return \Deviantintegral\DrupalUpdateClient\Release[]
+     */
+    public function getReleases(): array
+    {
+        return $this->releases;
+    }
+
+    /**
+     * @param \Deviantintegral\DrupalUpdateClient\Release[] $releases
+     */
+    public function setReleases(array $releases): void
+    {
+        $this->releases = $releases;
+    }
 
     /**
      * @return string
@@ -163,17 +203,17 @@ class Project
     /**
      * @return int
      */
-    public function getSupportedMajor(): int
+    public function getSupportedMajors(): int
     {
-        return $this->supportedMajor;
+        return $this->supportedMajors;
     }
 
     /**
-     * @param int $supportedMajor
+     * @param int $supportedMajors
      */
-    public function setSupportedMajor(int $supportedMajor): void
+    public function setSupportedMajors(int $supportedMajors): void
     {
-        $this->supportedMajor = $supportedMajor;
+        $this->supportedMajors = $supportedMajors;
     }
 
     /**
@@ -225,19 +265,11 @@ class Project
     }
 
     /**
-     * @return \Deviantintegral\DrupalUpdateClient\Terms
+     * @return \Deviantintegral\DrupalUpdateClient\Term[]
      */
-    public function getTerms(): Terms
+    public function getTerms(): array
     {
         return $this->terms;
-    }
-
-    /**
-     * @param \Deviantintegral\DrupalUpdateClient\Terms $terms
-     */
-    public function setTerms(Terms $terms): void
-    {
-        $this->terms = $terms;
     }
 
     //    public function addTerm(Term $term): void {

@@ -2,6 +2,8 @@
 
 namespace Deviantintegral\DrupalUpdateClient;
 
+use JMS\Serializer\Annotation as Serializer;
+
 /**
  * Represents a single term.
  */
@@ -9,11 +11,13 @@ class Term
 {
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     private $name;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     private $value;
 
