@@ -69,8 +69,8 @@ class Project
     private $projectStatus;
 
     /**
-     * @var string
-     * @Serializer\Type("string")
+     * @var \GuzzleHttp\Psr7\Uri
+     * @Serializer\Type("GuzzleHttp\Psr7\Uri")
      */
     private $link;
 

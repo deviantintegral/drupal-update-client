@@ -49,14 +49,14 @@ class Release
     private $status;
 
     /**
-     * @var string
-     * @Serializer\Type("string")
+     * @var \GuzzleHttp\Psr7\Uri
+     * @Serializer\Type("GuzzleHttp\Psr7\Uri")
      */
     private $release_link;
 
     /**
-     * @var string
-     * @Serializer\Type("string")
+     * @var \GuzzleHttp\Psr7\Uri
+     * @Serializer\Type("GuzzleHttp\Psr7\Uri")
      */
     private $download_link;
 

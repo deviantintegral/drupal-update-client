@@ -7,8 +7,8 @@ use JMS\Serializer\Annotation as Serializer;
 class File
 {
     /**
-     * @var string
-     * @Serializer\Type("string")
+     * @var \GuzzleHttp\Psr7\Uri
+     * @Serializer\Type("GuzzleHttp\Psr7\Uri")
      */
     private $url;
 
