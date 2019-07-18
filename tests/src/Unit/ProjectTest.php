@@ -69,6 +69,22 @@ class ProjectTest extends TestCase {
                         ->setVersionMajor(1),
                 ])
             ],
+            'Prior beta releases' => [
+                '1.0',
+                (new Project())->setReleases([
+                    (new Release())->setVersion('1.0')
+                        ->setVersionMajor(1)
+                        ->setVersionPatch(0),
+                    (new Release())->setVersion('1.0-beta2')
+                        ->setVersionMajor(1)
+                        ->setVersionPatch(0),
+                    (new Release())->setVersion('1.0-beta1')
+                        ->setVersionMajor(1)
+                        ->setVersionPatch(0),
+                    (new Release())->setVersion('1.x-dev')
+                        ->setVersionMajor(1),
+                ])
+            ],
             'A patch release' => [
                 '1.2-bugfix',
                 (new Project())->setReleases([
