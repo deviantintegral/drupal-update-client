@@ -275,27 +275,35 @@ class Project {
             throw new NoReleasesException($this);
         }
 
+        // By default, the first release in the list is recommended.
         $recommended = $releases[0];
+
+        // Loop through releases as the top release may be a prerelease.
         for ($index = 0; $index < count($releases); $index++) {
+            // The current release we are evaluating.
             $release = $releases[$index];
+
+            // If the release does not contain a dash (1.2-beta1), then it must
+            // be a full release and can be used.
             if (strpos($release->getVersion(), '-') === FALSE) {
                 break;
             }
 
+            // Move to the next release as this release contains a dash.
             if ($index + 1 == count($releases)) {
                 break;
             }
             $index++;
+
             $release = $releases[$index];
+            // If the next release does not contain a dash, and it is for a
+            // prior stable release, then it becomes recommended.
             if (strpos($release->getVersion(), '-') === FALSE &&
                 ($release->getVersionMajor() != $recommended->getVersionMajor() ||
                     $release->getVersionMinor() != $recommended->getVersionMinor() ||
                     $release->getVersionPatch() != $recommended->getVersionPatch())) {
                 $recommended = $release;
-                continue;
-            }
-
-            if (strpos($release->getVersion(), '-') !== FALSE) {
+                // We have a new recommended release, evaluate again.
                 continue;
             }
         }
