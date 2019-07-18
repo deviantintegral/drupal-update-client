@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Deviantintegral\DrupalUpdateClient;
 
+use Deviantintegral\DrupalUpdateClient\Exception\NoReleasesException;
 use GuzzleHttp\Psr7\Uri;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -271,7 +272,7 @@ class Project {
     public function getRecommendedRelease(): Release {
         $releases = $this->getReleases();
         if (empty($releases)) {
-            throw new \RuntimeException();
+            throw new NoReleasesException($this);
         }
 
         $recommended = $releases[0];
