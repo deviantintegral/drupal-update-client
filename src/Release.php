@@ -141,9 +141,9 @@ class Release
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getVersionMinor(): int {
+    public function getVersionMinor(): ?int {
         return $this->version_minor;
     }
 
@@ -158,9 +158,9 @@ class Release
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getVersionPatch(): int {
+    public function getVersionPatch(): ?int {
         return $this->version_patch;
     }
 

@@ -12,8 +12,8 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @Serializer\XmlRoot("project")
  */
-class Project
-{
+class Project {
+
     /**
      * @var string
      * @Serializer\Type("string")
@@ -96,187 +96,226 @@ class Project
     private $releases;
 
     /**
-     * @return \Deviantintegral\DrupalUpdateClient\Release[]
-     */
-    public function getReleases(): array
-    {
-        return $this->releases;
-    }
-
-    /**
-     * @param \Deviantintegral\DrupalUpdateClient\Release[] $releases
-     */
-    public function setReleases(array $releases): void
-    {
-        $this->releases = $releases;
-    }
-
-    /**
      * @return string
      */
-    public function getTitle(): string
-    {
+    public function getTitle(): string {
         return $this->title;
     }
 
     /**
      * @param string $title
      */
-    public function setTitle(string $title): void
-    {
+    public function setTitle(string $title): void {
         $this->title = $title;
     }
 
     /**
      * @return string
      */
-    public function getShortName(): string
-    {
+    public function getShortName(): string {
         return $this->shortName;
     }
 
     /**
      * @param string $shortName
      */
-    public function setShortName(string $shortName): void
-    {
+    public function setShortName(string $shortName): void {
         $this->shortName = $shortName;
     }
 
     /**
      * @return string
      */
-    public function getDcCreator(): string
-    {
+    public function getDcCreator(): string {
         return $this->dcCreator;
     }
 
     /**
      * @param string $dcCreator
      */
-    public function setDcCreator(string $dcCreator): void
-    {
+    public function setDcCreator(string $dcCreator): void {
         $this->dcCreator = $dcCreator;
     }
 
     /**
      * @return string
      */
-    public function getType(): string
-    {
+    public function getType(): string {
         return $this->type;
     }
 
     /**
      * @param string $type
      */
-    public function setType(string $type): void
-    {
+    public function setType(string $type): void {
         $this->type = $type;
     }
 
     /**
      * @return string
      */
-    public function getApiVersion(): string
-    {
+    public function getApiVersion(): string {
         return $this->apiVersion;
     }
 
     /**
      * @param string $apiVersion
      */
-    public function setApiVersion(string $apiVersion): void
-    {
+    public function setApiVersion(string $apiVersion): void {
         $this->apiVersion = $apiVersion;
     }
 
     /**
      * @return int
      */
-    public function getRecommendedMajor(): int
-    {
+    public function getRecommendedMajor(): int {
         return $this->recommendedMajor;
     }
 
     /**
      * @param int $recommendedMajor
      */
-    public function setRecommendedMajor(int $recommendedMajor): void
-    {
+    public function setRecommendedMajor(int $recommendedMajor): void {
         $this->recommendedMajor = $recommendedMajor;
     }
 
     /**
      * @return int
      */
-    public function getSupportedMajors(): int
-    {
+    public function getSupportedMajors(): int {
         return $this->supportedMajors;
     }
 
     /**
      * @param int $supportedMajors
      */
-    public function setSupportedMajors(int $supportedMajors): void
-    {
+    public function setSupportedMajors(int $supportedMajors): void {
         $this->supportedMajors = $supportedMajors;
     }
 
     /**
      * @return int
      */
-    public function getDefaultMajor(): int
-    {
+    public function getDefaultMajor(): int {
         return $this->defaultMajor;
     }
 
     /**
      * @param int $defaultMajor
      */
-    public function setDefaultMajor(int $defaultMajor): void
-    {
+    public function setDefaultMajor(int $defaultMajor): void {
         $this->defaultMajor = $defaultMajor;
     }
 
     /**
      * @return string
      */
-    public function getProjectStatus(): string
-    {
+    public function getProjectStatus(): string {
         return $this->projectStatus;
     }
 
     /**
      * @param string $projectStatus
      */
-    public function setProjectStatus(string $projectStatus): void
-    {
+    public function setProjectStatus(string $projectStatus): void {
         $this->projectStatus = $projectStatus;
     }
 
     /**
      * @return \GuzzleHttp\Psr7\Uri
      */
-    public function getLink(): Uri
-    {
+    public function getLink(): Uri {
         return $this->link;
     }
 
     /**
      * @param string $link
      */
-    public function setLink(string $link): void
-    {
+    public function setLink(string $link): void {
         $this->link = $link;
     }
 
     /**
      * @return \Deviantintegral\DrupalUpdateClient\Term[]
      */
-    public function getTerms(): array
-    {
+    public function getTerms(): array {
         return $this->terms;
     }
 
+    /**
+     * Return the recommended release for this project.
+     *
+     * The upstream function for this is tightly coupled to Drupal and has
+     * significant logic that isn't documented in the function header (but is in
+     * comments in the body). Currently, this method doesn't exactly duplicate
+     * the algorithm in Drupal, but a more straight-forward approximation
+     * somewhat mirroring typical semver solutions.
+     *
+     * - 1.6-bugfix <-- recommended version because 1.6 already exists.
+     * - 1.6
+     *
+     * or
+     *
+     * - 1.6-beta
+     * - 1.5 <-- recommended version because no 1.6 exists.
+     * - 1.4
+     *
+     * This function relies on the fact that the .xml release history data comes
+     * sorted based on major version and patch level, then finally by release
+     * date if there are multiple releases such as betas from the same
+     * major.patch version (e.g., 5.x-1.5-beta1, 5.x-1.5-beta2, and 5.x-1.5).
+     * Development snapshots for a given major version are always listed last.
+     *
+     * @see \update_calculate_project_update_status() in Drupal 8.
+     */
+    public function getRecommendedRelease(): Release {
+        $releases = $this->getReleases();
+        if (empty($releases)) {
+            throw new \RuntimeException();
+        }
+
+        $recommended = $releases[0];
+        for ($index = 0; $index < count($releases); $index++) {
+            $release = $releases[$index];
+            if (strpos($release->getVersion(), '-') === FALSE) {
+                break;
+            }
+
+            if ($index + 1 == count($releases)) {
+                break;
+            }
+            $index++;
+            $release = $releases[$index];
+            if (strpos($release->getVersion(), '-') === FALSE &&
+                ($release->getVersionMajor() != $recommended->getVersionMajor() ||
+                    $release->getVersionMinor() != $recommended->getVersionMinor() ||
+                    $release->getVersionPatch() != $recommended->getVersionPatch())) {
+                $recommended = $release;
+                continue;
+            }
+
+            if (strpos($release->getVersion(), '-') !== FALSE) {
+                continue;
+            }
+        }
+
+        return $recommended;
+    }
+
+    /**
+     * @return \Deviantintegral\DrupalUpdateClient\Release[]
+     */
+    public function getReleases(): array {
+        return $this->releases;
+    }
+
+    /**
+     * @param \Deviantintegral\DrupalUpdateClient\Release[] $releases
+     *
+     * @return \Deviantintegral\DrupalUpdateClient\Project
+     */
+    public function setReleases(array $releases): self {
+        $this->releases = $releases;
+        return $this;
+    }
 }
