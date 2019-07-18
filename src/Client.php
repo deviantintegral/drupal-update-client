@@ -40,6 +40,7 @@ class Client implements GuzzleClientInterface
     public static function getDefaultConfiguration($handler = null)
     {
         $config = [
+            'base_uri' => 'https://updates.drupal.org/release-history/',
             'headers' => [
                 'Accept' => 'application/xml',
                 'Content-Type' => 'application/xml',

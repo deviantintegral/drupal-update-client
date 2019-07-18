@@ -35,8 +35,8 @@ class File
     private $size;
 
     /**
-     * @var int
-     * @Serializer\Type("integer")
+     * @var \DateTime
+     * @Serializer\Type("DateTime")
      */
     private $filedate;
 
@@ -109,18 +109,18 @@ class File
     }
 
     /**
-     * @return int
+     * @return \DateTime
      */
-    public function getFiledate(): int {
+    public function getFiledate(): \DateTime {
         return $this->filedate;
     }
 
     /**
-     * @param int $filedate
+     * @param \DateTime $filedate
      *
      * @return File
      */
-    public function setFiledate(int $filedate): File {
+    public function setFiledate(\DateTime $filedate): File {
         $this->filedate = $filedate;
         return $this;
     }

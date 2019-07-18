@@ -4,6 +4,7 @@ namespace Deviantintegral\DrupalUpdateClient;
 
 use Deviantintegral\DrupalUpdateClient\Handler\UriHandler;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use JMS\Serializer\Handler\DateHandler;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
 
@@ -70,6 +71,7 @@ class Serializer
         return SerializerBuilder::create()
             ->configureHandlers(function (HandlerRegistry $registry) {
                 $registry->registerSubscribingHandler(new UriHandler());
+                $registry->registerSubscribingHandler(new DateHandler('U', 'UTC', false));
             });
     }
 }

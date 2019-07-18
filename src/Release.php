@@ -2,6 +2,7 @@
 
 namespace Deviantintegral\DrupalUpdateClient;
 
+use GuzzleHttp\Psr7\Uri;
 use JMS\Serializer\Annotation as Serializer;
 
 class Release
@@ -65,8 +66,8 @@ class Release
     private $download_link;
 
     /**
-     * @var string
-     * @Serializer\Type("string")
+     * @var \DateTime
+     * @Serializer\Type("DateTime")
      * @Serializer\XmlElement(cdata=false)
      */
     private $date;
@@ -193,7 +194,7 @@ class Release
     /**
      * @return \GuzzleHttp\Psr7\Uri
      */
-    public function getReleaseLink(): \GuzzleHttp\Psr7\Uri {
+    public function getReleaseLink(): Uri {
         return $this->release_link;
     }
 
@@ -202,7 +203,7 @@ class Release
      *
      * @return Release
      */
-    public function setReleaseLink(\GuzzleHttp\Psr7\Uri $release_link): Release {
+    public function setReleaseLink(Uri $release_link): Release {
         $this->release_link = $release_link;
         return $this;
     }
@@ -210,7 +211,7 @@ class Release
     /**
      * @return \GuzzleHttp\Psr7\Uri
      */
-    public function getDownloadLink(): \GuzzleHttp\Psr7\Uri {
+    public function getDownloadLink(): Uri {
         return $this->download_link;
     }
 
@@ -219,24 +220,24 @@ class Release
      *
      * @return Release
      */
-    public function setDownloadLink(\GuzzleHttp\Psr7\Uri $download_link): Release {
+    public function setDownloadLink(Uri $download_link): Release {
         $this->download_link = $download_link;
         return $this;
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getDate(): string {
+    public function getDate(): \DateTime {
         return $this->date;
     }
 
     /**
-     * @param string $date
+     * @param \DateTime $date
      *
      * @return Release
      */
-    public function setDate(string $date): Release {
+    public function setDate(\DateTime $date): Release {
         $this->date = $date;
         return $this;
     }
