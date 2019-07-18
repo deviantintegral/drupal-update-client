@@ -2,37 +2,74 @@
 
 namespace Deviantintegral\DrupalUpdateClient;
 
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Deviantintegral\DrupalUpdateClient\Handler\UriHandler;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use JMS\Serializer\Handler\HandlerRegistry;
+use JMS\Serializer\SerializerBuilder;
 
-class Serializer extends \Symfony\Component\Serializer\Serializer
+/**
+ * Serializer for drupal.org project data.
+ */
+class Serializer
 {
-    public function __construct(array $normalizers = [], array $encoders = [])
-    {
-        if (empty($normalizers)) {
-            $normalizers = [
-                new ObjectNormalizer(null, null, null, new ReflectionExtractor()),
-                new ArrayDenormalizer(),
-            ];
-        }
 
-        if (empty($encoders)) {
-            $encoders = [new JsonEncoder(), new XmlEncoder('project')];
-        }
+    /**
+     * @var \JMS\Serializer\SerializerInterface
+     */
+    private $serializer;
 
-        parent::__construct($normalizers, $encoders);
+    /**
+     * Serializer constructor.
+     *
+     * @param \JMS\Serializer\SerializerBuilder $builder
+     */
+    public function __construct(SerializerBuilder $builder) {
+        $this->serializer = $builder->build();
     }
 
-    public function deserializeProject($data): Project
+    /**
+     * Deserialize a project xml document into a Project.
+     * 
+     * @param string $data
+     *
+     * @return \Deviantintegral\DrupalUpdateClient\Project
+     */
+    public function deserializeProject(string $data): Project
     {
-        return $this->deserialize($data, Project::class, 'xml');
+        return $this->serializer->deserialize($data, Project::class, 'xml');
     }
 
+    /**
+     * Serialize a Project into an xml document.
+     * 
+     * @param \Deviantintegral\DrupalUpdateClient\Project $project
+     *
+     * @return string
+     */
     public function serializeProject(Project $project): string
     {
-        return $this->serialize($project, 'xml');
+        return $this->serializer->serialize($project, 'xml');
+    }
+
+    /**
+     * Create a new serializer using the default configuration.
+     * 
+     * @return \Deviantintegral\DrupalUpdateClient\Serializer
+     */
+    public static function create(): self {
+        return new static(static::getBuilder());
+    }
+
+    /**
+     * Return the builder used to create the serializer.
+     * 
+     * @return \JMS\Serializer\SerializerBuilder
+     */
+    public static function getBuilder(): SerializerBuilder {
+        AnnotationRegistry::registerLoader('class_exists');
+        return SerializerBuilder::create()
+            ->configureHandlers(function (HandlerRegistry $registry) {
+                $registry->registerSubscribingHandler(new UriHandler());
+            });
     }
 }

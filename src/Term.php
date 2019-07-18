@@ -12,12 +12,14 @@ class Term
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\XmlElement(cdata=false)
      */
     private $name;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\XmlElement(cdata=false)
      */
     private $value;
 

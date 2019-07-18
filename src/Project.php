@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Deviantintegral\DrupalUpdateClient;
 
+use GuzzleHttp\Psr7\Uri;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
@@ -16,12 +17,14 @@ class Project
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\XmlElement(cdata=false)
      */
     private $title;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\XmlElement(cdata=false)
      */
     private $shortName;
 
@@ -29,18 +32,21 @@ class Project
      * @var string
      * @Serializer\Type("string")
      * @Serializer\SerializedName("dc:creator")
+     * @Serializer\XmlElement(cdata=false)
      */
     private $dcCreator;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\XmlElement(cdata=false)
      */
     private $type;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\XmlElement(cdata=false)
      */
     private $apiVersion;
 
@@ -65,6 +71,7 @@ class Project
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\XmlElement(cdata=false)
      */
     private $projectStatus;
 
@@ -249,9 +256,9 @@ class Project
     }
 
     /**
-     * @return string
+     * @return \GuzzleHttp\Psr7\Uri
      */
-    public function getLink(): string
+    public function getLink(): Uri
     {
         return $this->link;
     }
@@ -272,15 +279,4 @@ class Project
         return $this->terms;
     }
 
-    //    public function addTerm(Term $term): void {
-    //        $this->terms[] = $term;
-    //    }
-    //
-    //    public function removeTerm(Term $term): void {
-    //        foreach ($this->terms as $index => $search) {
-    //            if ($search === $term) {
-    //                unset($this->terms[$index]);
-    //            }
-    //        }
-    //    }
 }

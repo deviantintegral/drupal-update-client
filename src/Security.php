@@ -17,6 +17,41 @@ class Security
      * @var string
      * @Serializer\Type("string")
      * @Serializer\XmlValue()
+     * @Serializer\XmlElement(cdata=false)
      */
     private $value;
+
+    /**
+     * @return bool
+     */
+    public function isCovered(): bool {
+        return $this->covered;
+    }
+
+    /**
+     * @param bool $covered
+     *
+     * @return Security
+     */
+    public function setCovered(bool $covered): Security {
+        $this->covered = $covered;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue(): string {
+        return $this->value;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return Security
+     */
+    public function setValue(string $value): Security {
+        $this->value = $value;
+        return $this;
+    }
 }
