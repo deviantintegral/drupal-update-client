@@ -108,6 +108,7 @@ class Release
 
     /**
      * @var Project
+     * @Serializer\Exclude()
      */
     private $project;
 
