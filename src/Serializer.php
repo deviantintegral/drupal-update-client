@@ -2,6 +2,7 @@
 
 namespace Deviantintegral\DrupalUpdateClient;
 
+use Deviantintegral\DrupalUpdateClient\Element\Project;
 use Deviantintegral\DrupalUpdateClient\Handler\UriHandler;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use JMS\Serializer\Handler\DateHandler;
@@ -33,7 +34,7 @@ class Serializer
      *
      * @param string $data
      *
-     * @return \Deviantintegral\DrupalUpdateClient\Project
+     * @return \Deviantintegral\DrupalUpdateClient\Element\Project
      */
     public function deserializeProject(string $data): Project
     {
@@ -43,7 +44,7 @@ class Serializer
     /**
      * Serialize a Project into an xml document.
      *
-     * @param \Deviantintegral\DrupalUpdateClient\Project $project
+     * @param \Deviantintegral\DrupalUpdateClient\Element\Project $project
      *
      * @return string
      */

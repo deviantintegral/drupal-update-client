@@ -2,6 +2,7 @@
 
 namespace Deviantintegral\DrupalUpdateClient;
 
+use Deviantintegral\DrupalUpdateClient\Element\Project;
 use GuzzleHttp\ClientInterface;
 
 class ProjectRepository

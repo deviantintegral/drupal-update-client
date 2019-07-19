@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Deviantintegral\DrupalUpdateClient;
+namespace Deviantintegral\DrupalUpdateClient\Element;
 
 use Deviantintegral\DrupalUpdateClient\Exception\NoReleasesException;
 use GuzzleHttp\Psr7\Uri;
@@ -83,15 +83,15 @@ class Project
     private $link;
 
     /**
-     * @var \Deviantintegral\DrupalUpdateClient\Term[]
-     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Term>")
+     * @var \Deviantintegral\DrupalUpdateClient\Element\Term[]
+     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Element\Term>")
      * @Serializer\XmlList(entry="term")
      */
     private $terms = [];
 
     /**
-     * @var \Deviantintegral\DrupalUpdateClient\Release[]
-     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Release>")
+     * @var \Deviantintegral\DrupalUpdateClient\Element\Release[]
+     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Element\Release>")
      * @Serializer\XmlList(entry="release")
      */
     private $releases;
@@ -257,7 +257,7 @@ class Project
     }
 
     /**
-     * @return \Deviantintegral\DrupalUpdateClient\Term[]
+     * @return \Deviantintegral\DrupalUpdateClient\Element\Term[]
      */
     public function getTerms(): array
     {
@@ -310,7 +310,7 @@ class Project
     }
 
     /**
-     * @return \Deviantintegral\DrupalUpdateClient\Release[]
+     * @return \Deviantintegral\DrupalUpdateClient\Element\Release[]
      */
     public function getReleases(): array
     {
@@ -318,7 +318,7 @@ class Project
     }
 
     /**
-     * @param \Deviantintegral\DrupalUpdateClient\Release[] $releases
+     * @param \Deviantintegral\DrupalUpdateClient\Element\Release[] $releases
      *
      * @return \Deviantintegral\DrupalUpdateClient\Project
      */
@@ -335,10 +335,9 @@ class Project
      * This method determines if the suffix is a prerelease or a patch release,
      * and recommends the newest, most stable release.
      *
-     * @param \Deviantintegral\DrupalUpdateClient\Release[] $releases
-     *                                                                An array of releases.
+     * @param \Deviantintegral\DrupalUpdateClient\Element\Release[] $releases An array of releases.
      *
-     * @return \Deviantintegral\DrupalUpdateClient\Release
+     * @return \Deviantintegral\DrupalUpdateClient\Element\Release
      */
     private function recommendReleaseWithSuffix(array $releases)
     {

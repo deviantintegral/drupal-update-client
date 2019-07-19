@@ -1,6 +1,6 @@
 <?php
 
-namespace Deviantintegral\DrupalUpdateClient;
+namespace Deviantintegral\DrupalUpdateClient\Element;
 
 use GuzzleHttp\Psr7\Uri;
 use JMS\Serializer\Annotation as Serializer;
@@ -86,22 +86,22 @@ class Release
     private $filesize;
 
     /**
-     * @var \Deviantintegral\DrupalUpdateClient\File[]
-     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\File>")
+     * @var \Deviantintegral\DrupalUpdateClient\Element\File[]
+     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Element\File>")
      * @Serializer\XmlList(entry="file")
      */
     private $files;
 
     /**
-     * @var \Deviantintegral\DrupalUpdateClient\Term[]
-     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Term>")
+     * @var \Deviantintegral\DrupalUpdateClient\Element\Term[]
+     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Element\Term>")
      * @Serializer\XmlList(entry="term")
      */
     private $terms;
 
     /**
      * @var string
-     * @Serializer\Type("Deviantintegral\DrupalUpdateClient\Security")
+     * @Serializer\Type("Deviantintegral\DrupalUpdateClient\Element\Security")
      * @Serializer\XmlElement(cdata=false)
      */
     private $security;
@@ -287,7 +287,7 @@ class Release
     }
 
     /**
-     * @return \Deviantintegral\DrupalUpdateClient\File[]
+     * @return \Deviantintegral\DrupalUpdateClient\Element\File[]
      */
     public function getFiles(): array
     {
@@ -295,7 +295,7 @@ class Release
     }
 
     /**
-     * @param \Deviantintegral\DrupalUpdateClient\File[] $files
+     * @param \Deviantintegral\DrupalUpdateClient\Element\File[] $files
      *
      * @return Release
      */
@@ -307,7 +307,7 @@ class Release
     }
 
     /**
-     * @return \Deviantintegral\DrupalUpdateClient\Term[]
+     * @return \Deviantintegral\DrupalUpdateClient\Element\Term[]
      */
     public function getTerms(): array
     {
@@ -315,7 +315,7 @@ class Release
     }
 
     /**
-     * @param \Deviantintegral\DrupalUpdateClient\Term[] $terms
+     * @param \Deviantintegral\DrupalUpdateClient\Element\Term[] $terms
      *
      * @return Release
      */

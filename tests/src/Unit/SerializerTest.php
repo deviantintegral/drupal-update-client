@@ -2,7 +2,7 @@
 
 namespace Deviantintegral\DrupalUpdateClient\Tests\Unit;
 
-use Deviantintegral\DrupalUpdateClient\Project;
+use Deviantintegral\DrupalUpdateClient\Element\Project;
 use Deviantintegral\DrupalUpdateClient\Serializer;
 use PHPUnit\Framework\TestCase;
 

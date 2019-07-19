@@ -2,15 +2,16 @@
 
 namespace Deviantintegral\DrupalUpdateClient\Tests\Unit;
 
-use Deviantintegral\DrupalUpdateClient\Project;
-use Deviantintegral\DrupalUpdateClient\Release;
+use Deviantintegral\DrupalUpdateClient\Element\Project;
+use Deviantintegral\DrupalUpdateClient\Element\Release;
 use PHPUnit\Framework\TestCase;
 
 class ProjectTest extends TestCase {
 
     /**
      * @param $expected
-     * @param \Deviantintegral\DrupalUpdateClient\Project $project
+     * @param \Deviantintegral\DrupalUpdateClient\Element\Project $project
+     *
      * @dataProvider releaseSetDataProvider
      */
     public function testGetRecommendedRelease($expected, Project $project) {
