@@ -20,6 +20,8 @@ class DucCommand extends Command
             ->setHelp('')
             ->addUsage('project:extract drupal')
             ->addUsage('project:extract drupal 8.7.3')
+            ->addUsage('project:extract drupal 8.x')
+            ->addUsage('project:extract drupal 8.x-dev')
             ->addUsage('project:extract ctools 7.x-1.x')
             ->addArgument('project')
             ->addArgument('version');
@@ -41,7 +43,7 @@ class DucCommand extends Command
 
         $project = $repository->load($project, $branch);
 
-        if (!$version) {
+        if (!$version || $version == $branch) {
             $output->write(sprintf('Downloading the recommended release from the %s branch.', $branch), true);
             $archive = $downloader->fetchRecommendedRelease($project);
             $output->write(sprintf('Selected release %s.', $archive->getFile()->getRelease()->getName()), true);
