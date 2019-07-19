@@ -5,8 +5,8 @@ namespace Deviantintegral\DrupalUpdateClient;
 use GuzzleHttp\Psr7\Uri;
 use JMS\Serializer\Annotation as Serializer;
 
-class Release {
-
+class Release
+{
     /**
      * @var string
      * @Serializer\Type("string")
@@ -109,7 +109,8 @@ class Release {
     /**
      * @return string
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->name;
     }
 
@@ -118,15 +119,18 @@ class Release {
      *
      * @return Release
      */
-    public function setName(string $name): Release {
+    public function setName(string $name): self
+    {
         $this->name = $name;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getVersion(): string {
+    public function getVersion(): string
+    {
         return $this->version;
     }
 
@@ -135,15 +139,18 @@ class Release {
      *
      * @return Release
      */
-    public function setVersion(string $version): Release {
+    public function setVersion(string $version): self
+    {
         $this->version = $version;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getTag(): string {
+    public function getTag(): string
+    {
         return $this->tag;
     }
 
@@ -152,15 +159,18 @@ class Release {
      *
      * @return Release
      */
-    public function setTag(string $tag): Release {
+    public function setTag(string $tag): self
+    {
         $this->tag = $tag;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getStatus(): string {
+    public function getStatus(): string
+    {
         return $this->status;
     }
 
@@ -169,15 +179,18 @@ class Release {
      *
      * @return Release
      */
-    public function setStatus(string $status): Release {
+    public function setStatus(string $status): self
+    {
         $this->status = $status;
+
         return $this;
     }
 
     /**
      * @return \GuzzleHttp\Psr7\Uri
      */
-    public function getReleaseLink(): Uri {
+    public function getReleaseLink(): Uri
+    {
         return $this->release_link;
     }
 
@@ -186,15 +199,18 @@ class Release {
      *
      * @return Release
      */
-    public function setReleaseLink(Uri $release_link): Release {
+    public function setReleaseLink(Uri $release_link): self
+    {
         $this->release_link = $release_link;
+
         return $this;
     }
 
     /**
      * @return \GuzzleHttp\Psr7\Uri
      */
-    public function getDownloadLink(): Uri {
+    public function getDownloadLink(): Uri
+    {
         return $this->download_link;
     }
 
@@ -203,15 +219,18 @@ class Release {
      *
      * @return Release
      */
-    public function setDownloadLink(Uri $download_link): Release {
+    public function setDownloadLink(Uri $download_link): self
+    {
         $this->download_link = $download_link;
+
         return $this;
     }
 
     /**
      * @return \DateTime
      */
-    public function getDate(): \DateTime {
+    public function getDate(): \DateTime
+    {
         return $this->date;
     }
 
@@ -220,15 +239,18 @@ class Release {
      *
      * @return Release
      */
-    public function setDate(\DateTime $date): Release {
+    public function setDate(\DateTime $date): self
+    {
         $this->date = $date;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getMdhash(): string {
+    public function getMdhash(): string
+    {
         return $this->mdhash;
     }
 
@@ -237,15 +259,18 @@ class Release {
      *
      * @return Release
      */
-    public function setMdhash(string $mdhash): Release {
+    public function setMdhash(string $mdhash): self
+    {
         $this->mdhash = $mdhash;
+
         return $this;
     }
 
     /**
      * @return int
      */
-    public function getFilesize(): int {
+    public function getFilesize(): int
+    {
         return $this->filesize;
     }
 
@@ -254,15 +279,18 @@ class Release {
      *
      * @return Release
      */
-    public function setFilesize(int $filesize): Release {
+    public function setFilesize(int $filesize): self
+    {
         $this->filesize = $filesize;
+
         return $this;
     }
 
     /**
      * @return \Deviantintegral\DrupalUpdateClient\File[]
      */
-    public function getFiles(): array {
+    public function getFiles(): array
+    {
         return $this->files;
     }
 
@@ -271,15 +299,18 @@ class Release {
      *
      * @return Release
      */
-    public function setFiles(array $files): Release {
+    public function setFiles(array $files): self
+    {
         $this->files = $files;
+
         return $this;
     }
 
     /**
      * @return \Deviantintegral\DrupalUpdateClient\Term[]
      */
-    public function getTerms(): array {
+    public function getTerms(): array
+    {
         return $this->terms;
     }
 
@@ -288,15 +319,18 @@ class Release {
      *
      * @return Release
      */
-    public function setTerms(array $terms): Release {
+    public function setTerms(array $terms): self
+    {
         $this->terms = $terms;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getSecurity(): string {
+    public function getSecurity(): string
+    {
         return $this->security;
     }
 
@@ -305,8 +339,10 @@ class Release {
      *
      * @return Release
      */
-    public function setSecurity(string $security): Release {
+    public function setSecurity(string $security): self
+    {
         $this->security = $security;
+
         return $this;
     }
 
@@ -316,12 +352,13 @@ class Release {
      * For example, 8.7.3-beta1 == 8.7.3, while 8.7.3 != 8.7.2.
      *
      * @param \Deviantintegral\DrupalUpdateClient\Release $other
-     *   The release to compare against.
+     *                                                           The release to compare against.
      *
      * @return bool
-     *   True if the other release is the same numeric version, false otherwise.
+     *              True if the other release is the same numeric version, false otherwise.
      */
-    public function isSameNumericVersion(Release $other): bool {
+    public function isSameNumericVersion(self $other): bool
+    {
         return $this->getVersionMajor() == $other->getVersionMajor() &&
             $this->getVersionMinor() == $other->getVersionMinor() &&
             $this->getVersionPatch() == $other->getVersionPatch();
@@ -332,26 +369,29 @@ class Release {
      *
      * @return bool
      */
-    public function hasSuffix(): bool {
-       return strpos($this->getVersion(), '-') !== FALSE;
+    public function hasSuffix(): bool
+    {
+        return false !== strpos($this->getVersion(), '-');
     }
 
     /**
      * Return if this release is a suffix of another release.
      *
      * @param \Deviantintegral\DrupalUpdateClient\Release $other
-     *   The other release which must not have a suffix.
+     *                                                           The other release which must not have a suffix.
      *
      * @return bool
      */
-    public function isSuffixOfRelease(Release $other): bool {
-        return ($this->hasSuffix() && !$other->hasSuffix() && $this->isSameNumericVersion($other));
+    public function isSuffixOfRelease(self $other): bool
+    {
+        return $this->hasSuffix() && !$other->hasSuffix() && $this->isSameNumericVersion($other);
     }
 
     /**
      * @return int
      */
-    public function getVersionMajor(): int {
+    public function getVersionMajor(): int
+    {
         return $this->version_major;
     }
 
@@ -360,15 +400,18 @@ class Release {
      *
      * @return Release
      */
-    public function setVersionMajor(int $version_major): Release {
+    public function setVersionMajor(int $version_major): self
+    {
         $this->version_major = $version_major;
+
         return $this;
     }
 
     /**
      * @return int|null
      */
-    public function getVersionMinor(): ?int {
+    public function getVersionMinor(): ?int
+    {
         return $this->version_minor;
     }
 
@@ -377,15 +420,18 @@ class Release {
      *
      * @return Release
      */
-    public function setVersionMinor(int $version_minor): Release {
+    public function setVersionMinor(int $version_minor): self
+    {
         $this->version_minor = $version_minor;
+
         return $this;
     }
 
     /**
      * @return int|null
      */
-    public function getVersionPatch(): ?int {
+    public function getVersionPatch(): ?int
+    {
         return $this->version_patch;
     }
 
@@ -394,9 +440,10 @@ class Release {
      *
      * @return Release
      */
-    public function setVersionPatch(int $version_patch): Release {
+    public function setVersionPatch(int $version_patch): self
+    {
         $this->version_patch = $version_patch;
+
         return $this;
     }
-
 }

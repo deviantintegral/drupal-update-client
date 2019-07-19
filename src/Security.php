@@ -24,7 +24,8 @@ class Security
     /**
      * @return bool
      */
-    public function isCovered(): bool {
+    public function isCovered(): bool
+    {
         return $this->covered;
     }
 
@@ -33,15 +34,18 @@ class Security
      *
      * @return Security
      */
-    public function setCovered(bool $covered): Security {
+    public function setCovered(bool $covered): self
+    {
         $this->covered = $covered;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getValue(): string {
+    public function getValue(): string
+    {
         return $this->value;
     }
 
@@ -50,8 +54,10 @@ class Security
      *
      * @return Security
      */
-    public function setValue(string $value): Security {
+    public function setValue(string $value): self
+    {
         $this->value = $value;
+
         return $this;
     }
 }

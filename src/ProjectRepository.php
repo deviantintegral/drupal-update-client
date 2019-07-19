@@ -4,8 +4,8 @@ namespace Deviantintegral\DrupalUpdateClient;
 
 use GuzzleHttp\ClientInterface;
 
-class ProjectRepository {
-
+class ProjectRepository
+{
     /**
      * @var \GuzzleHttp\ClientInterface
      */
@@ -16,13 +16,16 @@ class ProjectRepository {
      */
     private $serializer;
 
-    public function __construct(ClientInterface $client, Serializer $serializer) {
+    public function __construct(ClientInterface $client, Serializer $serializer)
+    {
         $this->client = $client;
         $this->serializer = $serializer;
     }
-    
-    public function load(string $project, string $version): Project {
+
+    public function load(string $project, string $version): Project
+    {
         $data = $this->client->request('GET', "$project/$version")->getBody();
+
         return $this->serializer->deserializeProject($data);
     }
 }

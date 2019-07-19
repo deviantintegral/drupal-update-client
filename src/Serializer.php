@@ -13,7 +13,6 @@ use JMS\Serializer\SerializerBuilder;
  */
 class Serializer
 {
-
     /**
      * @var \JMS\Serializer\SerializerInterface
      */
@@ -24,13 +23,14 @@ class Serializer
      *
      * @param \JMS\Serializer\SerializerBuilder $builder
      */
-    public function __construct(SerializerBuilder $builder) {
+    public function __construct(SerializerBuilder $builder)
+    {
         $this->serializer = $builder->build();
     }
 
     /**
      * Deserialize a project xml document into a Project.
-     * 
+     *
      * @param string $data
      *
      * @return \Deviantintegral\DrupalUpdateClient\Project
@@ -42,7 +42,7 @@ class Serializer
 
     /**
      * Serialize a Project into an xml document.
-     * 
+     *
      * @param \Deviantintegral\DrupalUpdateClient\Project $project
      *
      * @return string
@@ -54,20 +54,23 @@ class Serializer
 
     /**
      * Create a new serializer using the default configuration.
-     * 
+     *
      * @return \Deviantintegral\DrupalUpdateClient\Serializer
      */
-    public static function create(): self {
+    public static function create(): self
+    {
         return new static(static::getBuilder());
     }
 
     /**
      * Return the builder used to create the serializer.
-     * 
+     *
      * @return \JMS\Serializer\SerializerBuilder
      */
-    public static function getBuilder(): SerializerBuilder {
+    public static function getBuilder(): SerializerBuilder
+    {
         AnnotationRegistry::registerLoader('class_exists');
+
         return SerializerBuilder::create()
             ->configureHandlers(function (HandlerRegistry $registry) {
                 $registry->registerSubscribingHandler(new UriHandler());

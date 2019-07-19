@@ -6,7 +6,6 @@ use GuzzleHttp\Psr7\Uri;
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
-use JMS\Serializer\SerializationContext;
 use JMS\Serializer\XmlDeserializationVisitor;
 use JMS\Serializer\XmlSerializationVisitor;
 use Psr\Http\Message\UriInterface;
@@ -34,11 +33,11 @@ class UriHandler implements SubscribingHandlerInterface
         ];
     }
 
-    public function serializeUriToString(XmlSerializationVisitor $visitor, UriInterface $data, array $type) {
+    public function serializeUriToString(XmlSerializationVisitor $visitor, UriInterface $data, array $type)
+    {
         return $visitor->visitString((string) $data, $type);
-        
     }
-    
+
     public function deserializeStringToUri(XmlDeserializationVisitor $visitor, $data, array $type, DeserializationContext $context): ?Uri
     {
         return new Uri($data);

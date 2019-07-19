@@ -43,7 +43,8 @@ class File
     /**
      * @return \GuzzleHttp\Psr7\Uri
      */
-    public function getUrl(): Uri {
+    public function getUrl(): Uri
+    {
         return $this->url;
     }
 
@@ -52,15 +53,18 @@ class File
      *
      * @return File
      */
-    public function setUrl(Uri $url): File {
+    public function setUrl(Uri $url): self
+    {
         $this->url = $url;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getArchiveType(): string {
+    public function getArchiveType(): string
+    {
         return $this->archive_type;
     }
 
@@ -69,15 +73,18 @@ class File
      *
      * @return File
      */
-    public function setArchiveType(string $archive_type): File {
+    public function setArchiveType(string $archive_type): self
+    {
         $this->archive_type = $archive_type;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getMd5(): string {
+    public function getMd5(): string
+    {
         return $this->md5;
     }
 
@@ -86,15 +93,18 @@ class File
      *
      * @return File
      */
-    public function setMd5(string $md5): File {
+    public function setMd5(string $md5): self
+    {
         $this->md5 = $md5;
+
         return $this;
     }
 
     /**
      * @return int
      */
-    public function getSize(): int {
+    public function getSize(): int
+    {
         return $this->size;
     }
 
@@ -103,15 +113,18 @@ class File
      *
      * @return File
      */
-    public function setSize(int $size): File {
+    public function setSize(int $size): self
+    {
         $this->size = $size;
+
         return $this;
     }
 
     /**
      * @return \DateTime
      */
-    public function getFiledate(): \DateTime {
+    public function getFiledate(): \DateTime
+    {
         return $this->filedate;
     }
 
@@ -120,8 +133,10 @@ class File
      *
      * @return File
      */
-    public function setFiledate(\DateTime $filedate): File {
+    public function setFiledate(\DateTime $filedate): self
+    {
         $this->filedate = $filedate;
+
         return $this;
     }
 }

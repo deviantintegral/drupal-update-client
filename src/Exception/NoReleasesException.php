@@ -7,18 +7,16 @@ use Deviantintegral\DrupalUpdateClient\Project;
 /**
  * Thrown when a project has no releases.
  */
-class NoReleasesException extends \RuntimeException {
-
+class NoReleasesException extends \RuntimeException
+{
     /**
      * NoReleasesException constructor.
      *
-     * @param \Deviantintegral\DrupalUpdateClient\Project $project
-     *   The project that has no releases.
-     * @param \Throwable|NULL $previous
-     *   The previous exception, if one exists.
+     * @param \Deviantintegral\DrupalUpdateClient\Project $project  The project that has no releases.
+     * @param \Throwable|null                             $previous The previous exception, if one exists.
      */
-    public function __construct(Project $project, \Throwable $previous = NULL) {
+    public function __construct(Project $project, \Throwable $previous = null)
+    {
         parent::__construct(sprintf('%s has no releases', $project->getTitle()), $code = 0, $previous);
     }
-
 }

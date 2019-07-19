@@ -13,8 +13,8 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @Serializer\XmlRoot("project")
  */
-class Project {
-
+class Project
+{
     /**
      * @var string
      * @Serializer\Type("string")
@@ -99,147 +99,168 @@ class Project {
     /**
      * @return string
      */
-    public function getTitle(): string {
+    public function getTitle(): string
+    {
         return $this->title;
     }
 
     /**
      * @param string $title
      */
-    public function setTitle(string $title): void {
+    public function setTitle(string $title): void
+    {
         $this->title = $title;
     }
 
     /**
      * @return string
      */
-    public function getShortName(): string {
+    public function getShortName(): string
+    {
         return $this->shortName;
     }
 
     /**
      * @param string $shortName
      */
-    public function setShortName(string $shortName): void {
+    public function setShortName(string $shortName): void
+    {
         $this->shortName = $shortName;
     }
 
     /**
      * @return string
      */
-    public function getDcCreator(): string {
+    public function getDcCreator(): string
+    {
         return $this->dcCreator;
     }
 
     /**
      * @param string $dcCreator
      */
-    public function setDcCreator(string $dcCreator): void {
+    public function setDcCreator(string $dcCreator): void
+    {
         $this->dcCreator = $dcCreator;
     }
 
     /**
      * @return string
      */
-    public function getType(): string {
+    public function getType(): string
+    {
         return $this->type;
     }
 
     /**
      * @param string $type
      */
-    public function setType(string $type): void {
+    public function setType(string $type): void
+    {
         $this->type = $type;
     }
 
     /**
      * @return string
      */
-    public function getApiVersion(): string {
+    public function getApiVersion(): string
+    {
         return $this->apiVersion;
     }
 
     /**
      * @param string $apiVersion
      */
-    public function setApiVersion(string $apiVersion): void {
+    public function setApiVersion(string $apiVersion): void
+    {
         $this->apiVersion = $apiVersion;
     }
 
     /**
      * @return int
      */
-    public function getRecommendedMajor(): int {
+    public function getRecommendedMajor(): int
+    {
         return $this->recommendedMajor;
     }
 
     /**
      * @param int $recommendedMajor
      */
-    public function setRecommendedMajor(int $recommendedMajor): void {
+    public function setRecommendedMajor(int $recommendedMajor): void
+    {
         $this->recommendedMajor = $recommendedMajor;
     }
 
     /**
      * @return int
      */
-    public function getSupportedMajors(): int {
+    public function getSupportedMajors(): int
+    {
         return $this->supportedMajors;
     }
 
     /**
      * @param int $supportedMajors
      */
-    public function setSupportedMajors(int $supportedMajors): void {
+    public function setSupportedMajors(int $supportedMajors): void
+    {
         $this->supportedMajors = $supportedMajors;
     }
 
     /**
      * @return int
      */
-    public function getDefaultMajor(): int {
+    public function getDefaultMajor(): int
+    {
         return $this->defaultMajor;
     }
 
     /**
      * @param int $defaultMajor
      */
-    public function setDefaultMajor(int $defaultMajor): void {
+    public function setDefaultMajor(int $defaultMajor): void
+    {
         $this->defaultMajor = $defaultMajor;
     }
 
     /**
      * @return string
      */
-    public function getProjectStatus(): string {
+    public function getProjectStatus(): string
+    {
         return $this->projectStatus;
     }
 
     /**
      * @param string $projectStatus
      */
-    public function setProjectStatus(string $projectStatus): void {
+    public function setProjectStatus(string $projectStatus): void
+    {
         $this->projectStatus = $projectStatus;
     }
 
     /**
      * @return \GuzzleHttp\Psr7\Uri
      */
-    public function getLink(): Uri {
+    public function getLink(): Uri
+    {
         return $this->link;
     }
 
     /**
      * @param string $link
      */
-    public function setLink(string $link): void {
+    public function setLink(string $link): void
+    {
         $this->link = $link;
     }
 
     /**
      * @return \Deviantintegral\DrupalUpdateClient\Term[]
      */
-    public function getTerms(): array {
+    public function getTerms(): array
+    {
         return $this->terms;
     }
 
@@ -269,7 +290,8 @@ class Project {
      *
      * @see \update_calculate_project_update_status() in Drupal 8.
      */
-    public function getRecommendedRelease(): Release {
+    public function getRecommendedRelease(): Release
+    {
         $releases = $this->getReleases();
         if (empty($releases)) {
             throw new NoReleasesException($this);
@@ -280,7 +302,7 @@ class Project {
 
         // If there's multiple releases, and the top release has a suffix, then
         // it's possible we are evaluating a prerelease and not a patch release.
-        if (count($releases) > 1 && $recommended->hasSuffix()) {
+        if (\count($releases) > 1 && $recommended->hasSuffix()) {
             $recommended = $this->recommendReleaseWithSuffix($releases);
         }
 
@@ -290,7 +312,8 @@ class Project {
     /**
      * @return \Deviantintegral\DrupalUpdateClient\Release[]
      */
-    public function getReleases(): array {
+    public function getReleases(): array
+    {
         return $this->releases;
     }
 
@@ -299,8 +322,10 @@ class Project {
      *
      * @return \Deviantintegral\DrupalUpdateClient\Project
      */
-    public function setReleases(array $releases): self {
+    public function setReleases(array $releases): self
+    {
         $this->releases = $releases;
+
         return $this;
     }
 
@@ -311,13 +336,14 @@ class Project {
      * and recommends the newest, most stable release.
      *
      * @param \Deviantintegral\DrupalUpdateClient\Release[] $releases
-     *   An array of releases.
+     *                                                                An array of releases.
      *
      * @return \Deviantintegral\DrupalUpdateClient\Release
      */
-    private function recommendReleaseWithSuffix(array $releases) {
+    private function recommendReleaseWithSuffix(array $releases)
+    {
         $recommended = $releases[0];
-        for ($index = 1; $index < count($releases); $index++) {
+        for ($index = 1; $index < \count($releases); ++$index) {
             $release = $releases[$index];
 
             // If the current recommended release is a patch release, then
@@ -344,6 +370,7 @@ class Project {
                 break;
             }
         }
+
         return $recommended;
-}
+    }
 }
