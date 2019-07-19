@@ -41,6 +41,12 @@ class File
     private $filedate;
 
     /**
+     * @var Release
+     * @Serializer\Exclude()
+     */
+    private $release;
+
+    /**
      * @return \GuzzleHttp\Psr7\Uri
      */
     public function getUrl(): Uri
@@ -138,5 +144,26 @@ class File
         $this->filedate = $filedate;
 
         return $this;
+    }
+
+    /**
+     * @return Release
+     */
+    public function getRelease(): Release
+    {
+        return $this->release;
+    }
+
+    /**
+     * @param Release $release
+     */
+    public function setRelease(Release $release): void
+    {
+        $this->release = $release;
+    }
+
+    public function hasRelease(): bool
+    {
+        return isset($this->release);
     }
 }
