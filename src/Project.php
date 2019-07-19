@@ -279,7 +279,7 @@ class Project {
         $recommended = $releases[0];
 
         // A single release, so it is the only one.
-        if (count($releases) > 1 && strpos($recommended->getVersion(), '-') !== FALSE) {
+        if (count($releases) > 1 && $recommended->hasSuffix()) {
             // Loop through releases as the top release may be a prerelease.
             for ($index = 1; $index < count($releases); $index++) {
                 // The current release we are evaluating.
