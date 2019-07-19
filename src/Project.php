@@ -278,24 +278,10 @@ class Project {
         // By default, the first release in the list is recommended.
         $recommended = $releases[0];
 
-        // A single release, so it is the only one.
+        // If there's multiple releases, and the top release has a suffix, then
+        // it's possible we are evaluating a prerelease and not a patch release.
         if (count($releases) > 1 && $recommended->hasSuffix()) {
-            // Loop through releases as the top release may be a prerelease.
-            for ($index = 1; $index < count($releases); $index++) {
-                // The current release we are evaluating.
-                $release = $releases[$index];
-
-                if (!$release->hasSuffix()) {
-                    if ($recommended->isSameNumericVersion($release)) {
-                        break;
-                    }
-                    $recommended = $release;
-                }
-
-                if (!$release->hasSuffix()) {
-                    break;
-                }
-            }
+            $recommended = $this->recommendReleaseWithSuffix($releases);
         }
 
         return $recommended;
@@ -317,4 +303,47 @@ class Project {
         $this->releases = $releases;
         return $this;
     }
+
+    /**
+     * Recommend a release where the first release has a suffix.
+     *
+     * This method determines if the suffix is a prerelease or a patch release,
+     * and recommends the newest, most stable release.
+     *
+     * @param \Deviantintegral\DrupalUpdateClient\Release[] $releases
+     *   An array of releases.
+     *
+     * @return \Deviantintegral\DrupalUpdateClient\Release
+     */
+    private function recommendReleaseWithSuffix(array $releases) {
+        $recommended = $releases[0];
+        for ($index = 1; $index < count($releases); $index++) {
+            $release = $releases[$index];
+
+            // If the current recommended release is a patch release, then
+            // select it.
+            if ($recommended->isSuffixOfRelease($release)) {
+                break;
+            }
+
+            // The release does not have a suffix, which means that the
+            // currently recommended release is a prerelease.
+            if (!$release->hasSuffix() || !$release->isSameNumericVersion($recommended)) {
+                // Since dev releases are always sorted to the bottom, we know
+                // that if we are crossing major version numbers at this point
+                // it is between dev-only releases like 2.x-dev and 1.x-dev, in
+                // which case we want the newest dev branch.
+                if ($recommended->getVersionMajor() == $release->getVersionMajor()) {
+                    $recommended = $release;
+                }
+            }
+
+            // We found a recommended release without a suffix, so it must be a
+            // stable release.
+            if (!$recommended->hasSuffix()) {
+                break;
+            }
+        }
+        return $recommended;
+}
 }

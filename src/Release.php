@@ -327,8 +327,25 @@ class Release {
             $this->getVersionPatch() == $other->getVersionPatch();
     }
 
+    /**
+     * Return if this release has a suffix, such as -beta1.
+     *
+     * @return bool
+     */
     public function hasSuffix(): bool {
        return strpos($this->getVersion(), '-') !== FALSE;
+    }
+
+    /**
+     * Return if this release is a suffix of another release.
+     *
+     * @param \Deviantintegral\DrupalUpdateClient\Release $other
+     *   The other release which must not have a suffix.
+     *
+     * @return bool
+     */
+    public function isSuffixOfRelease(Release $other): bool {
+        return ($this->hasSuffix() && !$other->hasSuffix() && $this->isSameNumericVersion($other));
     }
 
     /**

@@ -120,6 +120,37 @@ class ProjectTest extends TestCase {
                         ->setVersionMajor(1),
                 ]),
             ],
+            'A prerelease following a patch release' => [
+                '1.2-bugfix',
+                (new Project())->setReleases([
+                    (new Release())->setVersion('1.3-beta1')
+                        ->setVersionMajor(1)
+                        ->setVersionPatch(3),
+                    (new Release())->setVersion('1.2-bugfix')
+                        ->setVersionMajor(1)
+                        ->setVersionPatch(2),
+                    (new Release())->setVersion('1.2')
+                        ->setVersionMajor(1)
+                        ->setVersionPatch(2),
+                    (new Release())->setVersion('1.1')
+                        ->setVersionMajor(1)
+                        ->setVersionPatch(1),
+                    (new Release())->setVersion('1.x-dev')
+                        ->setVersionMajor(1),
+                ]),
+            ],
+            'A new development branch' => [
+                '1.0',
+                (new Project())->setReleases([
+                    (new Release())->setVersion('1.0')
+                        ->setVersionMajor(1)
+                        ->setVersionPatch(0),
+                    (new Release())->setVersion('2.x-dev')
+                        ->setVersionMajor(2),
+                    (new Release())->setVersion('1.x-dev')
+                        ->setVersionMajor(1)
+                ]),
+            ],
             'Two development branches' => [
                 '2.x-dev',
                 (new Project())->setReleases([
