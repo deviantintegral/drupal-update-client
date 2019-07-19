@@ -149,18 +149,10 @@ jobs:
     docker:
       - image: php:7.2
 
-    working_directory: ~/repo
-
-    <<: *test
-
-  build_php71:
-    docker:
-      - image: php:7.1
-
-    working_directory: ~/repo
-
     environment:
       - COMPOSER_FLAGS: --prefer-lowest
+
+    working_directory: ~/repo
 
     <<: *test
 
@@ -178,7 +170,6 @@ workflows:
   # Declare a workflow that runs all of our jobs in parallel.
   test_cover_workflow:
     jobs:
-      - build_php71
       - build_php72
       - build_php73
       - code_fixer
@@ -193,7 +184,6 @@ workflows:
               only:
                 - master
     jobs:
-      - build_php71
       - build_php72
       - build_php73
       - code_fixer
