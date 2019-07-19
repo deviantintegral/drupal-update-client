@@ -30,6 +30,19 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "2.15.1",
-        "phpunit/phpunit": "^8.2"
+        "phpunit/phpunit": "^8.2",
+        "macfja/phar-builder": "^0.2.8"
+    },
+    "scripts": {
+        "build-phar": "php -dphar.readonly=0 vendor/bin/phar-builder package composer.json"
+    },
+    "extra": {
+        "phar-builder": {
+            "compression": "gzip",
+            "name": "duc.phar",
+            "output-dir": "./",
+            "entry-point": "bin/console",
+            "include": []
+        }
     }
 }
