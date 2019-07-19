@@ -92,7 +92,6 @@ test_and_cover: &test_and_cover
       # run tests!
       - run: |
           mkdir -p build/logs
-          ./cc-test-reporter before-build
           vendor/bin/phpunit --testsuite Unit
 
       - store_test_results:
