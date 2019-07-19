@@ -320,7 +320,7 @@ class Project
     /**
      * @param \Deviantintegral\DrupalUpdateClient\Element\Release[] $releases
      *
-     * @return \Deviantintegral\DrupalUpdateClient\Project
+     * @return \Deviantintegral\DrupalUpdateClient\Element\Project
      */
     public function setReleases(array $releases): self
     {

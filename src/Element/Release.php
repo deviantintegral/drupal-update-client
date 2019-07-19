@@ -351,8 +351,7 @@ class Release
      *
      * For example, 8.7.3-beta1 == 8.7.3, while 8.7.3 != 8.7.2.
      *
-     * @param \Deviantintegral\DrupalUpdateClient\Release $other
-     *                                                           The release to compare against.
+     * @param \Deviantintegral\DrupalUpdateClient\Element\Release $other The release to compare against.
      *
      * @return bool
      *              True if the other release is the same numeric version, false otherwise.
@@ -377,8 +376,7 @@ class Release
     /**
      * Return if this release is a suffix of another release.
      *
-     * @param \Deviantintegral\DrupalUpdateClient\Release $other
-     *                                                           The other release which must not have a suffix.
+     * @param \Deviantintegral\DrupalUpdateClient\Element\Release $other The other release which must not have a suffix.
      *
      * @return bool
      */
