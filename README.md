@@ -13,6 +13,8 @@ library will be useful to modernize the Update module.
 
 ## Features
 
+* PHARs available on the
+  [releases page](https://github.com/deviantintegral/drupal-update-client/releases)
 * A strongly-typed set of classes representing Projects, Releases, and Files.
 * Serialization and deserialization of Projects from XML retreived from
   drupal.org.
