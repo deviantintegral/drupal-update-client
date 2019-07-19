@@ -143,7 +143,7 @@ class ProjectTest extends TestCase {
                 (new Release())->setVersion('8.7.1')
                     ->setVersionMajor(8)
                     ->setVersionMinor(7)
-                    ->setVersionPatch(2),
+                    ->setVersionPatch(1),
                 (new Release())->setVersion('8.7.0')
                     ->setVersionMajor(8)
                     ->setVersionMinor(7)
@@ -171,7 +171,7 @@ class ProjectTest extends TestCase {
                     (new Release())->setVersion('8.7.1')
                         ->setVersionMajor(8)
                         ->setVersionMinor(7)
-                        ->setVersionPatch(2),
+                        ->setVersionPatch(1),
                     (new Release())->setVersion('8.7.0')
                         ->setVersionMajor(8)
                         ->setVersionMinor(7)

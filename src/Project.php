@@ -285,16 +285,14 @@ class Project {
                 // The current release we are evaluating.
                 $release = $releases[$index];
 
-                if (strpos($release->getVersion(), '-') === FALSE) {
-                    if ($recommended->getVersionMajor() == $release->getVersionMajor() &&
-                        $recommended->getVersionMinor() == $release->getVersionMinor() &&
-                        $recommended->getVersionPatch() == $release->getVersionPatch()) {
+                if (!$release->hasSuffix()) {
+                    if ($recommended->isSameNumericVersion($release)) {
                         break;
                     }
                     $recommended = $release;
                 }
 
-                if (strpos($recommended->getVersion(), '-') === FALSE) {
+                if (!$release->hasSuffix()) {
                     break;
                 }
             }

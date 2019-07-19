@@ -5,8 +5,8 @@ namespace Deviantintegral\DrupalUpdateClient;
 use GuzzleHttp\Psr7\Uri;
 use JMS\Serializer\Annotation as Serializer;
 
-class Release
-{
+class Release {
+
     /**
      * @var string
      * @Serializer\Type("string")
@@ -73,6 +73,40 @@ class Release
     private $date;
 
     /**
+     * @var string
+     * @Serializer\Type("string")
+     * @Serializer\XmlElement(cdata=false)
+     */
+    private $mdhash;
+
+    /**
+     * @var int
+     * @Serializer\Type("integer")
+     */
+    private $filesize;
+
+    /**
+     * @var \Deviantintegral\DrupalUpdateClient\File[]
+     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\File>")
+     * @Serializer\XmlList(entry="file")
+     */
+    private $files;
+
+    /**
+     * @var \Deviantintegral\DrupalUpdateClient\Term[]
+     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Term>")
+     * @Serializer\XmlList(entry="term")
+     */
+    private $terms;
+
+    /**
+     * @var string
+     * @Serializer\Type("Deviantintegral\DrupalUpdateClient\Security")
+     * @Serializer\XmlElement(cdata=false)
+     */
+    private $security;
+
+    /**
      * @return string
      */
     public function getName(): string {
@@ -120,57 +154,6 @@ class Release
      */
     public function setTag(string $tag): Release {
         $this->tag = $tag;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getVersionMajor(): int {
-        return $this->version_major;
-    }
-
-    /**
-     * @param int $version_major
-     *
-     * @return Release
-     */
-    public function setVersionMajor(int $version_major): Release {
-        $this->version_major = $version_major;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getVersionMinor(): ?int {
-        return $this->version_minor;
-    }
-
-    /**
-     * @param int $version_minor
-     *
-     * @return Release
-     */
-    public function setVersionMinor(int $version_minor): Release {
-        $this->version_minor = $version_minor;
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getVersionPatch(): ?int {
-        return $this->version_patch;
-    }
-
-    /**
-     * @param int $version_patch
-     *
-     * @return Release
-     */
-    public function setVersionPatch(int $version_patch): Release {
-        $this->version_patch = $version_patch;
         return $this;
     }
 
@@ -328,36 +311,75 @@ class Release
     }
 
     /**
-     * @var string
-     * @Serializer\Type("string")
-     * @Serializer\XmlElement(cdata=false)
+     * Returns if this is the same as another release, ignoring suffixes.
+     *
+     * For example, 8.7.3-beta1 == 8.7.3, while 8.7.3 != 8.7.2.
+     *
+     * @param \Deviantintegral\DrupalUpdateClient\Release $other
+     *   The release to compare against.
+     *
+     * @return bool
+     *   True if the other release is the same numeric version, false otherwise.
      */
-    private $mdhash;
+    public function isSameNumericVersion(Release $other): bool {
+        return $this->getVersionMajor() == $other->getVersionMajor() &&
+            $this->getVersionMinor() == $other->getVersionMinor() &&
+            $this->getVersionPatch() == $other->getVersionPatch();
+    }
+
+    public function hasSuffix(): bool {
+       return strpos($this->getVersion(), '-') !== FALSE;
+    }
 
     /**
-     * @var int
-     * @Serializer\Type("integer")
+     * @return int
      */
-    private $filesize;
+    public function getVersionMajor(): int {
+        return $this->version_major;
+    }
 
     /**
-     * @var \Deviantintegral\DrupalUpdateClient\File[]
-     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\File>")
-     * @Serializer\XmlList(entry="file")
+     * @param int $version_major
+     *
+     * @return Release
      */
-    private $files;
+    public function setVersionMajor(int $version_major): Release {
+        $this->version_major = $version_major;
+        return $this;
+    }
 
     /**
-     * @var \Deviantintegral\DrupalUpdateClient\Term[]
-     * @Serializer\Type("array<Deviantintegral\DrupalUpdateClient\Term>")
-     * @Serializer\XmlList(entry="term")
+     * @return int|null
      */
-    private $terms;
+    public function getVersionMinor(): ?int {
+        return $this->version_minor;
+    }
 
     /**
-     * @var string
-     * @Serializer\Type("Deviantintegral\DrupalUpdateClient\Security")
-     * @Serializer\XmlElement(cdata=false)
+     * @param int $version_minor
+     *
+     * @return Release
      */
-    private $security;
+    public function setVersionMinor(int $version_minor): Release {
+        $this->version_minor = $version_minor;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getVersionPatch(): ?int {
+        return $this->version_patch;
+    }
+
+    /**
+     * @param int $version_patch
+     *
+     * @return Release
+     */
+    public function setVersionPatch(int $version_patch): Release {
+        $this->version_patch = $version_patch;
+        return $this;
+    }
+
 }
