@@ -42,6 +42,7 @@ class File
 
     /**
      * @var Release
+     * @Serializer\Exclude()
      */
     private $release;
 
