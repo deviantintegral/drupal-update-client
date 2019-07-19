@@ -1,6 +1,6 @@
 <?php
 
-namespace Deviantintegral\DrupalUpdateClient;
+namespace Deviantintegral\DrupalUpdateClient\Element;
 
 use GuzzleHttp\Psr7\Uri;
 use JMS\Serializer\Annotation as Serializer;
