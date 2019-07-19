@@ -23,9 +23,9 @@ class ProjectRepository
         $this->serializer = $serializer;
     }
 
-    public function load(string $project, string $version): Project
+    public function load(string $project, string $branch): Project
     {
-        $data = $this->client->request('GET', "$project/$version")->getBody();
+        $data = $this->client->request('GET', "$project/$branch")->getBody();
 
         return $this->serializer->deserializeProject($data);
     }

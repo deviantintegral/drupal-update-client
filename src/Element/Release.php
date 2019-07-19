@@ -107,6 +107,11 @@ class Release
     private $security;
 
     /**
+     * @var Project
+     */
+    private $project;
+
+    /**
      * @return string
      */
     public function getName(): string
@@ -443,5 +448,20 @@ class Release
         $this->version_patch = $version_patch;
 
         return $this;
+    }
+
+    public function setProject(Project $project): void
+    {
+        $this->project = $project;
+    }
+
+    public function getProject(): Project
+    {
+        return $this->project;
+    }
+
+    public function hasProject(): bool
+    {
+        return isset($this->project);
     }
 }

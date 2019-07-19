@@ -49,6 +49,7 @@ class Client implements GuzzleClientInterface
 
         if (!$handler) {
             $handler = HandlerStack::create();
+            $handler->push(Middleware::errors(), 'xml_errors');
         }
         $config['handler'] = $handler;
 

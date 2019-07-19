@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Deviantintegral\DrupalUpdateClient\Element;
 
-use Deviantintegral\DrupalUpdateClient\Exception\NoReleasesException;
+use Deviantintegral\DrupalUpdateClient\Exception\NoMatchingReleasesException;
 use GuzzleHttp\Psr7\Uri;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -294,7 +294,7 @@ class Project
     {
         $releases = $this->getReleases();
         if (empty($releases)) {
-            throw new NoReleasesException($this);
+            throw new NoMatchingReleasesException($this);
         }
 
         // By default, the first release in the list is recommended.
@@ -307,6 +307,17 @@ class Project
         }
 
         return $recommended;
+    }
+
+    public function getReleaseForVersion(string $version): Release
+    {
+        foreach ($this->getReleases() as $release) {
+            if ($release->getVersion() == $version) {
+                return $release;
+            }
+        }
+
+        throw new NoMatchingReleasesException($this, $version);
     }
 
     /**

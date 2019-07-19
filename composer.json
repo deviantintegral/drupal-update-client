@@ -11,9 +11,12 @@
     ],
     "require": {
         "php": "^7.2",
+        "ext-dom": "*",
         "guzzlehttp/guzzle": "^6.3",
         "jms/serializer": "^3.1",
-        "doctrine/annotations": "^1.6"
+        "doctrine/annotations": "^1.6",
+        "pear/archive_tar": "^1.4",
+        "symfony/console": "^4.3"
     },
     "autoload": {
         "psr-4": {
